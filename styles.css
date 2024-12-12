@@ -4,3 +4,9 @@
   align-items: flex-start;
   margin-bottom: 20px;
 }
+
+.error-message {
+  color: red;
+  font-size: 12px;
+  display: none;
+}

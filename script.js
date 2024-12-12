@@ -2,6 +2,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("myForm");
 
   form.addEventListener("submit", function (event) {
+    //Resetando mensagem de erro
+    resetErrorMessage();
+
     if (!validateMandatoryFields()) {
       event.preventDefault(); // impede a submissão do formulário se houver erros
     }
@@ -19,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
       let field = mandatoryFields[i];
 
       if (field.value === "" || field.value === null) {
-        console.log("Este campo é obrigatório!");
+        displayError(field, "This field is mandatory!");
         isValid = false;
       }
     }
@@ -31,9 +34,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const confirmPassword = document.getElementById("confirmarSenha");
 
     if (password.value !== confirmPassword.value) {
-      console.log("As senhas não conferem!");
+      displayError(confirmPassword, "Passwords do not match!");
       return false;
     }
     return true;
+  }
+
+  function displayError(element, message) {
+    let errorMessage = element.parentElement.querySelector(".error-message");
+    errorMessage.textContent = message;
+    errorMessage.style.display = "inline-block"; // exibir a mensagem de erro
+  }
+  function resetErrorMessage() {
+    let errorMessage = document.querySelectorAll(".error-message");
+    for (let i = 0; i < errorMessage.length; i++) {
+      errorMessage[i].textContent = "";
+    }
   }
 });
