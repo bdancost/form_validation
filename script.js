@@ -5,6 +5,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const nomeInput = document.getElementById("nome");
   const nomeError = document.getElementById("nome-error");
 
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+
+      const activeElement = document.activeElement;
+      if (form.contains(activeElement)) {
+        form.dispatchEvent(new Event("submit"));
+      }
+    } else if (event.key === "Escape") {
+      event.preventDefault();
+      this.location.reload();
+    }
+  });
+
   form.addEventListener("submit", function (event) {
     event.preventDefault();
 
