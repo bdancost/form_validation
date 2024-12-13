@@ -1,54 +1,51 @@
+"stricts.js";
+
 document.addEventListener("DOMContentLoaded", function () {
-  const form = document.getElementById("myForm");
+  const form = document.getElementById("calc-form");
+  const nomeInput = document.getElementById("nome");
+  const nomeError = document.getElementById("nome-error");
 
   form.addEventListener("submit", function (event) {
-    //Resetando mensagem de erro
-    resetErrorMessage();
+    event.preventDefault();
 
-    if (!validateMandatoryFields()) {
-      event.preventDefault(); // impede a submissão do formulário se houver erros
+    if (!nomeInput.value) {
+      nomeError.style.display = "block";
+      return;
+    } else {
+      nomeError.style.display = "none";
     }
 
-    if (!compareValues()) {
-      event.preventDefault();
+    const nome = nomeInput.value;
+    const altura = parseFloat(document.getElementById("altura").value);
+    const peso = parseFloat(document.getElementById("peso").value);
+
+    const imc = peso / (altura * altura);
+
+    const resultadoElement = document.getElementById("resultado");
+
+    let categoria;
+
+    if (imc < 18.5) {
+      categoria = "Abaixo do peso";
+      resultadoElement.style.backgroundColor = "#FFF000";
+    } else if (imc < 25) {
+      categoria = "Peso normal";
+      resultadoElement.style.backgroundColor = "#00FF00";
+    } else if (imc < 30) {
+      categoria = "Sobrepeso";
+      resultadoElement.style.backgroundColor = "#FFA500";
+    } else {
+      categoria = "Obesidade";
+      resultadoElement.style.backgroundColor = "#FF0000";
     }
+
+    resultado.innerHTML = `<p>Nome: ${nome}, seu IMC é ${imc.toFixed(2)} </p> 
+    <p>Você está na categoria: ${categoria}</p>`;
+
+    // Atualiza a categoria - input
+    document.getElementById("categoria").value = categoria;
+    let dados = new FormData(form);
+
+    for (let [key, value] of dados.entries()) console.log(key + " : " + value);
   });
-
-  function validateMandatoryFields() {
-    let mandatoryFields = document.querySelectorAll(".form-control");
-    let isValid = true;
-
-    for (let i = 0; i < mandatoryFields.length; i++) {
-      let field = mandatoryFields[i];
-
-      if (field.value === "" || field.value === null) {
-        displayError(field, "This field is mandatory!");
-        isValid = false;
-      }
-    }
-    return isValid;
-  }
-
-  function compareValues() {
-    const password = document.getElementById("senha");
-    const confirmPassword = document.getElementById("confirmarSenha");
-
-    if (password.value !== confirmPassword.value) {
-      displayError(confirmPassword, "Passwords do not match!");
-      return false;
-    }
-    return true;
-  }
-
-  function displayError(element, message) {
-    let errorMessage = element.parentElement.querySelector(".error-message");
-    errorMessage.textContent = message;
-    errorMessage.style.display = "inline-block"; // exibir a mensagem de erro
-  }
-  function resetErrorMessage() {
-    let errorMessage = document.querySelectorAll(".error-message");
-    for (let i = 0; i < errorMessage.length; i++) {
-      errorMessage[i].textContent = "";
-    }
-  }
 });
