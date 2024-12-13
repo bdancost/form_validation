@@ -1,7 +1,5 @@
 # Calculadora de IMC
 
-![Badge](https://img.shields.io/badge/status-em%20desenvolvimento-yellow) ![License](https://img.shields.io/badge/licen%C3%A7a-MIT-blue)
-
 Uma calculadora de IMC (Índice de Massa Corporal) desenvolvida com HTML, CSS e JavaScript, que permite calcular e classificar o IMC de um indivíduo com base em seu peso e altura. O projeto inclui recursos de usabilidade, como envio com a tecla **Enter** e recarregamento com a tecla **Esc**.
 
 ## Demonstração
